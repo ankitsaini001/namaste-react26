@@ -2,8 +2,8 @@
 /dist
 /build
 /.vscode
-/.idea  
+/.idea
 .DS_Store
-*.log   
-/ .parcel-cache
-/ .cache
+*.log
+.parcel-cache
+.cache
