@@ -9,10 +9,25 @@ import ReactDOM from "react-dom/client";
 // JSX (It transpiles before it reaches to javascript) is not supported by browsers, so it needs to be transpiled into regular JavaScript using tools like Babel before it can be executed in the browser. This transpilation process converts JSX syntax into standard JavaScript function calls that create React elements, which can then be rendered to the DOM. The resulting JavaScript code is what browsers can understand and execute to render the UI components defined in JSX.
 // Parcel  - Babel - Transpiler - JSX to JavaScript
 
+// Functional Component
+const Title = () => {
+    return <h1 id="heading_title" className="heading-class"><i>Namaste React</i></h1>;
+}
+const Heading = () => {
+    // this is known as Component Composition, where we can use one component inside another component. Here we are using
+   
+    return (
+    <div>
+        <Title />
+        <h1 id="heading" className="heading-class">Hello Namaste React</h1>
+    </div>);
+}
+
 const heading = <h1 id="heading" className="heading-class">Hello Namaste React</h1>;
 console.log(heading); // return an object with type, props and key
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(heading);
+// root.render(heading);
+root.render(<Heading />);
 /***
  * <div id="parent">
  * <div id="child">
