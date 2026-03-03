@@ -1,27 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 
-// lets start working on our first react component
-// Header Component
+/* ================= HEADER ================= */
+
 const Header = () => {
   return (
     <div className="header">
-      <img
-        src="https://graphicsfamily.com/wp-content/uploads/edd/2021/11/Logo-Template-for-Food-4-scaled.jpg"
-        alt="logo"
-        className="logo"
-      />
-      <div className="nav-items">
-        <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
-        </ul>
-      </div>
+      <h1>Food Villa</h1>
     </div>
   );
 };
+
+/* ================= SEARCH ================= */
 
 const SearchBar = () => {
   return (
@@ -34,91 +24,132 @@ const SearchBar = () => {
   );
 };
 
-// Restaurant List Component
-const RestaurantList = () => {
-    return (
-        <div className="restaurant-list">
-            <div className="restaurant-card">
-          <img
-            src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/FOOD_CATALOG/IMAGES/CMS/2025/5/17/57c9176a-f4c7-4ca3-8db3-d7d7a531d65f_993ef335-5221-48f3-9e70-2725d14a6dc8.jpg"
-            alt="restaurant"
-            className="restaurant-image"
-          />
-          <h2 className="restaurant-name">Biryani By Kilo</h2>
-          <h3 className="restaurant-cuisine">Biryani, Hyderabadi, Mughlai</h3>
-          <h4 className="restaurant-rating">4.5</h4>
-        </div>
-        <div className="restaurant-card">
-          <img
-            src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/FOOD_CATALOG/IMAGES/CMS/2025/5/17/57c9176a-f4c7-4ca3-8db3-d7d7a531d65f_993ef335-5221-48f3-9e70-2725d14a6dc8.jpg"
-            alt="restaurant"
-            className="restaurant-image"
-          />
-          <h2 className="restaurant-name">Biryani By Kilo</h2>
-          <h3 className="restaurant-cuisine">Biryani, Hyderabadi, Mughlai</h3>
-          <h4 className="restaurant-rating">4.5</h4>
-        </div>
-        </div>
-    );
-}
+/* ================= RESTAURANT CARD ================= */
 
-const Body = () => {
+const IMG_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
+
+const RestaurantCard = ({ data }) => {
+  const info = data?.info;
+
+  if (!info) return null;
+
   return (
-    <div className="body">
-      <SearchBar />
-      {/* <div className="restaurant-list"> */}
-        <RestaurantList/>
-      {/* </div> */}
+    <div className="restaurant-card">
+      <img
+        src={IMG_URL + info.cloudinaryImageId}
+        alt={info.name}
+        className="restaurant-image"
+      />
+      <h2>{info.name}</h2>
+      <h3>{info.cuisines?.join(", ")}</h3>
+      <h4>⭐ {info.avgRating}</h4>
     </div>
   );
 };
 
-// Footer Component
+/* ================= BODY ================= */
+
+const Body = () => {
+  const [restaurants, setRestaurants] = useState([]);
+
+  const API_URL = "https://namastedev.com/api/v1/listRestaurants";
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(API_URL);
+      const json = await response.json();
+
+      // Find the card that contains restaurants safely
+      const cards = json?.data?.data?.cards;
+
+      const restaurantCard = cards?.find(
+        (c) => c?.card?.card?.gridElements?.infoWithStyle?.restaurants,
+      );
+
+      const restaurants =
+        restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
+        [];
+
+      // 🔥 Remove "Spice Kingdom"
+      const filteredRestaurants = restaurants.filter(
+        (restaurant) => restaurant?.info?.name !== "Spice Kingdom",
+      );
+
+      setRestaurants(filteredRestaurants);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  return (
+    <div className="body">
+      <SearchBar />
+      {/* use unique key is best practice rather then index key */}
+      <div className="restaurant-list">
+        {restaurants.map((restaurant, index) => (
+          <RestaurantCard
+            key={restaurant?.info?.id || index}
+            data={restaurant}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+/* ================= FOOTER ================= */
+
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-
-        <div className="footer-section">
-          <h2 className="footer-logo">Food Villa</h2>
-          <p className="footer-description">
-            Delicious food delivered to your doorstep. Experience taste like never before.
-          </p>
+        <div>
+          <h2>Food Villa</h2>
+          <p>Delicious food delivered to your doorstep.</p>
         </div>
 
-        <div className="footer-section">
+        <div>
           <h3>Quick Links</h3>
           <ul>
             <li>Home</li>
-            <li>About Us</li>
+            <li>About</li>
             <li>Menu</li>
             <li>Contact</li>
           </ul>
         </div>
 
-        <div className="footer-section">
-          <h3>Contact Us</h3>
-          <p>📍 Pune, Maharashtra</p>
-          <p>📞 +91 98765 43210</p>
-          <p>✉️ support@foodvilla.com</p>
+        <div>
+          <h3>Contact</h3>
+          <p>Pune, Maharashtra</p>
+          <p>+91 98765 43210</p>
         </div>
-
       </div>
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} Food Villa. All Rights Reserved.
+        © {new Date().getFullYear()} Food Villa
       </div>
     </footer>
   );
 };
 
+/* ================= APP ================= */
+
 const App = () => {
-  return (  <div className="app">
-    <Header />
-    <Body />
-    <Footer />
-  </div>);
+  return (
+    <div className="app">
+      <Header />
+      <Body />
+      <Footer />
+    </div>
+  );
 };
+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+// root.render(<App />);
 
 // JSX - JavaScript XML
 // JSX is a syntax extension for JavaScript that allows you to write HTML-like code within your JavaScript code. It is commonly used in React to describe the UI structure and appearance of components. JSX makes it easier to create and visualize the structure of your UI, as it closely resembles HTML, while still allowing you to use JavaScript expressions and logic within it. When you write JSX, it gets transpiled into regular JavaScript function calls that create React elements, which can then be rendered to the DOM.
