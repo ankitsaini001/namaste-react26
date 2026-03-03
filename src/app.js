@@ -1,140 +1,20 @@
-import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 
 /* ================= HEADER ================= */
 
-const Header = () => {
-  return (
-    <div className="header">
-      <h1>Food Villa</h1>
-    </div>
-  );
-};
+import Header from "./components/Header";
 
 /* ================= SEARCH ================= */
 
-const SearchBar = () => {
-  return (
-    <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Search for restaurant, cuisine or a dish"
-      />
-    </div>
-  );
-};
-
 /* ================= RESTAURANT CARD ================= */
-
-const IMG_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
-
-const RestaurantCard = ({ data }) => {
-  const info = data?.info;
-
-  if (!info) return null;
-
-  return (
-    <div className="restaurant-card">
-      <img
-        src={IMG_URL + info.cloudinaryImageId}
-        alt={info.name}
-        className="restaurant-image"
-      />
-      <h2>{info.name}</h2>
-      <h3>{info.cuisines?.join(", ")}</h3>
-      <h4>⭐ {info.avgRating}</h4>
-    </div>
-  );
-};
 
 /* ================= BODY ================= */
 
-const Body = () => {
-  const [restaurants, setRestaurants] = useState([]);
-
-  const API_URL = "https://namastedev.com/api/v1/listRestaurants";
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(API_URL);
-      const json = await response.json();
-
-      // Find the card that contains restaurants safely
-      const cards = json?.data?.data?.cards;
-
-      const restaurantCard = cards?.find(
-        (c) => c?.card?.card?.gridElements?.infoWithStyle?.restaurants,
-      );
-
-      const restaurants =
-        restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
-        [];
-
-      // 🔥 Remove "Spice Kingdom"
-      const filteredRestaurants = restaurants.filter(
-        (restaurant) => restaurant?.info?.name !== "Spice Kingdom",
-      );
-
-      setRestaurants(filteredRestaurants);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  return (
-    <div className="body">
-      <SearchBar />
-      {/* use unique key is best practice rather then index key */}
-      <div className="restaurant-list">
-        {restaurants.map((restaurant, index) => (
-          <RestaurantCard
-            key={restaurant?.info?.id || index}
-            data={restaurant}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
+import Body from "./components/Body";
 
 /* ================= FOOTER ================= */
 
-const Footer = () => {
-  return (
-    <footer className="footer">
-      <div className="footer-container">
-        <div>
-          <h2>Food Villa</h2>
-          <p>Delicious food delivered to your doorstep.</p>
-        </div>
-
-        <div>
-          <h3>Quick Links</h3>
-          <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Menu</li>
-            <li>Contact</li>
-          </ul>
-        </div>
-
-        <div>
-          <h3>Contact</h3>
-          <p>Pune, Maharashtra</p>
-          <p>+91 98765 43210</p>
-        </div>
-      </div>
-
-      <div className="footer-bottom">
-        © {new Date().getFullYear()} Food Villa
-      </div>
-    </footer>
-  );
-};
+import Footer from "./components/Footer";
 
 /* ================= APP ================= */
 
