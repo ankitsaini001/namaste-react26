@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import RestaurantCard from "./RestaurantCard";
 import { RESTRO_API_URL } from "../utils/content";
 import FilterTopRatedRestro from "./FilterTopRatedRestro";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -59,6 +60,13 @@ const Body = () => {
 
     setRestaurants(filtered);
   };
+
+  // Shimmer Effect - Loading State
+  if (restaurants.length === 0) {
+    return (
+      <Shimmer/>
+    );
+  }
 
   return (
     <div className="body">
