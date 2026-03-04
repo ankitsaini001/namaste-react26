@@ -20,6 +20,7 @@ const Body = () => {
       const json = await response.json();
 
       // Find the card that contains restaurants safely
+      // Optional Chaining (?.) is used to prevent errors if any part of the path is undefined or null. It allows us to safely access nested properties without worrying about runtime errors if any intermediate property is missing. If any part of the chain is undefined or null, the entire expression will return undefined instead of throwing an error, making it easier to handle cases where data may not be structured as expected.
       const cards = json?.data?.data?.cards;
 
       const restaurantCard = cards?.find(
