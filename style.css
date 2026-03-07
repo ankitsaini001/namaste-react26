@@ -251,6 +251,27 @@
   }
 }
 
+.search-btn {
+  padding: 10px 20px;
+  background-color: #ff5200;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-btn:hover {
+  background-color: #e64a00;
+  transform: translateY(-1px);
+}
+
+.search-btn:active {
+  transform: scale(0.98);
+}
+
 @media (max-width: 768px) {
   .footer {
     padding: 40px 20px 20px;
