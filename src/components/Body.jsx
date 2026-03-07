@@ -63,14 +63,19 @@ const Body = () => {
   }, [filteredTopRestaurants]);
 
   // Search Filter
-  const searchFilter = () => {
-    console.log(searchText);
+  const searchFilter = useCallback(() => {
+    if (!searchText.trim()) {
+      setRestaurants(filteredTopRestaurants);
+      return;
+    }
     
-    const filtered = filteredTopRestaurants.filter((res) =>
-      res?.info?.name.toLowerCase().includes(searchText.toLowerCase()),
-    );
+    const filtered = filteredTopRestaurants.filter((res) => {
+      const name = res?.info?.name || "";
+      return name.toLowerCase().includes(searchText.toLowerCase());
+    });
+    
     setRestaurants(filtered);
-  }
+  }, [filteredTopRestaurants, searchText]);
 
   // Shimmer Effect - Loading State
   // This is known as consitional rendering in React. It allows us to render different components or elements based on certain conditions. In this case, we check if the restaurants array is empty. If it is, we render the Shimmer component to indicate that data is being loaded. Once the data is fetched and the restaurants array is populated, the Shimmer component will no longer be rendered, and instead, the list of restaurants will be displayed.
