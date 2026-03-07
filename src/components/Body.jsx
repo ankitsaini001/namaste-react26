@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import SearchBar from "./SearchBar";
 import RestaurantCard from "./RestaurantCard";
 import { RESTRO_API_URL } from "../utils/content";
@@ -8,6 +8,7 @@ import Shimmer from "./Shimmer";
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredTopRestaurants, setFilteredRestaurants] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   const API_URL = RESTRO_API_URL;
 
@@ -53,13 +54,23 @@ const Body = () => {
   };
 
   // ✅ Define OUTSIDE fetchData
-  const handleTopRated = () => {
+  const handleTopRated = useCallback(() => {
     const filtered = filteredTopRestaurants.filter(
       (res) => parseFloat(res?.info?.avgRating) > 4.5,
     );
 
     setRestaurants(filtered);
-  };
+  }, [filteredTopRestaurants]);
+
+  // Search Filter
+  const searchFilter = () => {
+    console.log(searchText);
+    
+    const filtered = filteredTopRestaurants.filter((res) =>
+      res?.info?.name.toLowerCase().includes(searchText.toLowerCase()),
+    );
+    setRestaurants(filtered);
+  }
 
   // Shimmer Effect - Loading State
   // This is known as consitional rendering in React. It allows us to render different components or elements based on certain conditions. In this case, we check if the restaurants array is empty. If it is, we render the Shimmer component to indicate that data is being loaded. Once the data is fetched and the restaurants array is populated, the Shimmer component will no longer be rendered, and instead, the list of restaurants will be displayed.
@@ -69,19 +80,24 @@ const Body = () => {
   //   );
   // }
 
-  return restaurants.length === 0 ? <Shimmer/> : (
+  return filteredTopRestaurants.length === 0 ? <Shimmer/> : (
     <div className="body">
       <FilterTopRatedRestro onFilter={handleTopRated} />
-      <SearchBar />
-      {/* use unique key is best practice rather then index key */}
-      <div className="restaurant-list">
-        {restaurants.map((restaurant, index) => (
-          <RestaurantCard
-            key={restaurant?.info?.id || index}
-            data={restaurant}
-          />
-        ))}
-      </div>
+      <SearchBar searchText={searchText} setSearchText={setSearchText} searchFilter={searchFilter} />
+      {restaurants.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "20px", fontSize: "18px", color: "#999" }}>
+          No restaurants found. Try a different search.
+        </div>
+      ) : (
+        <div className="restaurant-list">
+          {restaurants.map((restaurant, index) => (
+            <RestaurantCard
+              key={restaurant?.info?.id || index}
+              data={restaurant}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
