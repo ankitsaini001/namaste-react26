@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { APP_LOGO } from "../utils/content";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [loginBtn, setLoginBtn] = useState("Login");
@@ -9,10 +10,10 @@ const Header = () => {
       <img src={APP_LOGO} alt="logo" className="logo" />
       <div className="nav-items">
         <ul>
-          <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Cart</li>
+          <li><Link to="/" className="nav">Home</Link></li>
+          <li><Link to="/about" className="nav">About Us</Link></li>
+          <li><Link to="/contact" className="nav">Contact Us</Link></li>
+          <li><Link to="/cart" className="nav">Cart</Link></li>
           {/* 
           Why we use useState for logoUrl instead of a simple variable?
           In React, when we want to create interactive components that can change their state over time, we use the useState hook. This allows us to manage state in functional components. If we were to use a simple variable for logoUrl, it would not trigger a re-render of the component when its value changes. This means that even if we update logoUrl to "Logout", the component would not reflect this change in the UI. By using useState, we can ensure that any updates to logoUrl will cause the component to re-render and display the updated value.

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { APP_LOGO } from "../utils/content";
 
 const Footer = () => {
@@ -16,10 +17,10 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Quick Links</h3>
           <ul>
-            <li>Home</li>
-            <li>About Us</li>
-            <li>Menu</li>
-            <li>Contact</li>
+            <li><Link to="/" className="nav">Home</Link></li>
+            <li><Link to="/about" className="nav">About Us</Link></li>
+            <li><Link to="/menu" className="nav">Menu</Link></li>
+            <li><Link to="/contact" className="nav">Contact</Link></li>
           </ul>
         </div>
 

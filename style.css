@@ -514,6 +514,10 @@
   text-decoration: none;
   font-weight: 500;
 }
+.nav{
+  color: #fff;
+  text-decoration: none;
+}
 /* Responsive */
 
 @media (max-width: 768px) {
