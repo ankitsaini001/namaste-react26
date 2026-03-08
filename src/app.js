@@ -16,6 +16,13 @@ import Body from "./components/Body";
 
 import Footer from "./components/Footer";
 
+/* ================= React Router ================= */
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AboutUs from "./components/AboutUs";
+import ContactUs from "./components/ContactUs";
+import Error from "./components/Error";
+
 /* ================= APP ================= */
 
 const App = () => {
@@ -28,6 +35,22 @@ const App = () => {
   );
 };
 
+// create a React Router
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <Error />
+  },
+  {
+    path: "/about",
+    element: <AboutUs/>,
+  },
+  {
+    path: "/contact",
+    element: <ContactUs/>,
+  }
+]);
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(<App />);
 
@@ -56,7 +79,7 @@ const App = () => {
 //console.log(heading); // return an object with type, props and key
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root.render(heading);
-root.render(<App />);
+root.render(<RouterProvider router={appRouter} />);
 /***
  * <div id="parent">
  * <div id="child">
