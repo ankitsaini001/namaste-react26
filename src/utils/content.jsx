@@ -1,4 +1,5 @@
-export const RESTRO_API_URL = "https://corsproxy.io/?url=https://namastedev.com/api/v1/listRestaurants";
+export const RESTRO_API_URL = "https://namastedev.com/api/v1/listRestaurants";
+//export const RESTRO_API_URL = "https://corsproxy.io/?url=https://namastedev.com/api/v1/listRestaurants";
 
 export const RESTRO_IMG_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
 
