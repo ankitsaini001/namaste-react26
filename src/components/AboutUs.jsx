@@ -1,11 +1,29 @@
 const AboutUs = () => {
   return (
-    <div>   
-        <h1>About Us</h1>
-        <p>We are a company that values excellence and customer satisfaction. Our mission is to provide high-quality products and services to our customers while fostering a positive and inclusive work environment for our employees.</p>
-        <p>Our team is dedicated to innovation and continuous improvement, striving to exceed our customers' expectations and contribute positively to the community.</p>
+    <div className="about-container">
+      <div className="about-card">
+        <h1 className="about-title">About Us</h1>
+
+        <p className="about-text">
+          We are a company that values <strong>excellence</strong> and
+          <strong> customer satisfaction</strong>. Our mission is to provide
+          high-quality products and services while creating a positive and
+          inclusive environment for our team.
+        </p>
+
+        <p className="about-text">
+          Our team is dedicated to <strong>innovation</strong> and
+          <strong> continuous improvement</strong>. We constantly strive to
+          exceed customer expectations and contribute positively to the
+          community.
+        </p>
+
+        <p className="about-text">
+          Thank you for being part of our journey. 🚀
+        </p>
+      </div>
     </div>
   );
-}
+};
 
 export default AboutUs;
