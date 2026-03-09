@@ -24,6 +24,7 @@ import ContactUs from "./components/ContactUs";
 import Error from "./components/Error";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import RestaurantMenuList from "./components/RestaurantMenuList";
 
 /* ================= APP ================= */
 
@@ -62,6 +63,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/restaurant/:id",
+        element: <RestaurantMenuList />,
       }
     ],
     errorElement: <Error />,
