@@ -4,7 +4,6 @@ const RestaurantMenuList = () => {
   const [restaurantInfo, setRestaurantInfo] = useState({});
   const [menu, setMenu] = useState([]);
   const [showItems, setShowItems] = useState(false);
-  //const [specialPizza, setSpecialPizza] = useState(null);
 
   useEffect(() => {
     fetchRestaurantMenu();
@@ -101,7 +100,7 @@ const RestaurantMenuList = () => {
         )}
       </div>
       <div>
-        
+
       </div>
     </div>
   );
