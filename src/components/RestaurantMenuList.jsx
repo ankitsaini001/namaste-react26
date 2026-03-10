@@ -1,102 +1,111 @@
 import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
 
 const RestaurantMenuList = () => {
   const [resMenuItems, setResMenuItems] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
+
   useEffect(() => {
-    // Fetch restaurant menu data
     fetchRestaurantMenu();
   }, []);
 
   const fetchRestaurantMenu = async () => {
     try {
-      const res = await fetch('https://namastedev.com/api/v1/listRestaurantMenu/123456');
+      const res = await fetch(
+        "https://namastedev.com/api/v1/listRestaurantMenu/123456"
+      );
+
       const jsonData = await res.json();
-      console.log(jsonData);
 
-      // Extract restaurant info from the response
       const restaurantInfo = jsonData?.data?.cards[2]?.card?.card?.info;
-      console.log(restaurantInfo);
       setRestaurantInfo(restaurantInfo);
-        // Extract restaurant items from the response
-      const items = jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
-      setResMenuItems(items);
-      console.log(setResMenuItems);
-      
 
+      const items =
+        jsonData?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards ||
+        [];
+
+      const categories = items.filter(
+        (item) =>
+          item?.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
+
+      setResMenuItems(categories);
     } catch (error) {
       console.error("Error fetching restaurant menu:", error);
     }
+  };
+
+  if (resMenuItems.length === 0) {
+    return <Shimmer/>;
   }
 
   return (
-    <div>
-      <h1>{restaurantInfo?.name}</h1>
-      <p>{restaurantInfo?.cuisines?.join(", ")}</p>
-      <p>Rating: {restaurantInfo?.avgRating}</p>
-      <p>{restaurantInfo?.costForTwoMessage}</p>
-
-      <div>
-        {
-          resMenuItems.map((item) => {
-            const { title, itemCards } = item?.card?.card || {};
-            return (
-              <div>
-                <h3 key={title}>{title}</h3>
-                <div>
-                  {
-                    itemCards?.map((itemCard) => {
-                      const info = itemCard?.card?.info || {};
-                      return (
-                        <div key={info?.id}>
-                          <ul>
-                            <li>{info?.name}</li>
-                            <li>{info?.description}</li>
-                            <li>Price: ₹{info?.price / 100}</li>
-                          </ul>
-                        </div>
-                      );
-                    })
-                  }
-                </div>
-              </div>
-            )
-          })
-        }
+    <div className="menu-container">
+      
+      {/* Restaurant Info */}
+      <div className="restaurant-info">
+        <h1>{restaurantInfo?.name}</h1>
+        <p>{restaurantInfo?.cuisines?.join(", ")}</p>
+        <p>⭐ {restaurantInfo?.avgRating}</p>
+        <p>{restaurantInfo?.costForTwoMessage}</p>
       </div>
+
+      <hr />
+
+      {/* Categories */}
+      {resMenuItems
+        .filter((category) => category?.card?.card?.itemCards)
+        .map((category, index) => {
+          const { title, itemCards, categoryId } = category?.card?.card;
+
+          return (
+            <div className="category" key={categoryId || `category-${index}`}>
+              <h3 className="category-title">{title}</h3>
+
+              {itemCards
+                .filter((item) => item?.card?.info)
+                .map((item, itemIndex) => {
+                  const {
+                    id,
+                    name,
+                    description,
+                    price,
+                    defaultPrice,
+                    imageId,
+                  } = item?.card?.info;
+
+                  return (
+                    <div
+                      className="menu-item"
+                      key={id || `item-${index}-${itemIndex}`}
+                    >
+                      <div className="menu-item-content">
+                        <h4 className="item-name">{name}</h4>
+                        <p className="item-desc">{description}</p>
+                        <p className="item-price">
+                          ₹{(price || defaultPrice) / 100}
+                        </p>
+                      </div>
+
+                      {imageId && (
+                        <img
+                          className="item-image"
+                          src={`https://media-assets.swiggy.com/swiggy/image/upload/${imageId}`}
+                          alt={name}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
+          );
+        })}
     </div>
   );
-}
+};
 
 export default RestaurantMenuList;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { useEffect, useState } from "react";
 
