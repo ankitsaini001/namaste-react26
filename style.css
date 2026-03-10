@@ -518,6 +518,93 @@
   color: #fff;
   text-decoration: none;
 }
+
+/* Page container */
+.menu-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Restaurant info */
+.restaurant-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.restaurant-info h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.restaurant-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Category section */
+.category {
+  margin-bottom: 40px;
+}
+
+.category h3 {
+  font-size: 22px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+/* Menu item card */
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+  gap: 20px;
+}
+
+/* Left content */
+.menu-item-content {
+  flex: 1;
+}
+
+.menu-item-content h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.menu-item-content p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.menu-item-content .price {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Image */
+.menu-item img {
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .menu-item {
+    flex-direction: column;
+  }
+
+  .menu-item img {
+    width: 100%;
+    height: auto;
+  }
+}
 /* Responsive */
 
 @media (max-width: 768px) {
