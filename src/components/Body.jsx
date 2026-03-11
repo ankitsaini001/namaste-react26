@@ -4,6 +4,7 @@ import RestaurantCard from "./RestaurantCard";
 import { RESTRO_API_URL } from "../utils/content";
 import FilterTopRatedRestro from "./FilterTopRatedRestro";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -96,10 +97,12 @@ const Body = () => {
       ) : (
         <div className="restaurant-list">
           {restaurants.map((restaurant, index) => (
+            //<Link to ='/restaurant/' + restaurant?.info?.id} key={restaurant?.info?.id || index>
+            <Link to={`/restaurant/${restaurant?.info?.id}`} key={restaurant?.info?.id || index}>
             <RestaurantCard
-              key={restaurant?.info?.id || index}
               data={restaurant}
             />
+            </Link>
           ))}
         </div>
       )}

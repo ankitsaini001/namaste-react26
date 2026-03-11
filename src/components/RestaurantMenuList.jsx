@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import {MENU_API_URL} from "../utils/content";
+import { useParams } from "react-router";
 
 const RestaurantMenuList = () => {
   const [resMenuItems, setResMenuItems] = useState([]);
   const [restaurantInfo, setRestaurantInfo] = useState({});
+  const {id} = useParams();
+  console.log(id);
 
   useEffect(() => {
     fetchRestaurantMenu();
@@ -11,11 +15,11 @@ const RestaurantMenuList = () => {
 
   const fetchRestaurantMenu = async () => {
     try {
-      const res = await fetch(
-        "https://namastedev.com/api/v1/listRestaurantMenu/123456"
-      );
+      const res = await fetch(MENU_API_URL+id);
 
       const jsonData = await res.json();
+      console.log(jsonData);
+      
 
       const restaurantInfo = jsonData?.data?.cards[2]?.card?.card?.info;
       setRestaurantInfo(restaurantInfo);
