@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
-import {MENU_API_URL} from "../utils/content";
+import {MENU_API_URL, MENU_IMG_URL} from "../utils/content";
 import { useParams } from "react-router";
 
 const RestaurantMenuList = () => {
@@ -18,8 +18,7 @@ const RestaurantMenuList = () => {
       const res = await fetch(MENU_API_URL+id);
 
       const jsonData = await res.json();
-      console.log(jsonData);
-      
+      // console.log(jsonData);
 
       const restaurantInfo = jsonData?.data?.cards[2]?.card?.card?.info;
       setRestaurantInfo(restaurantInfo);
@@ -95,7 +94,8 @@ const RestaurantMenuList = () => {
                       {imageId && (
                         <img
                           className="item-image"
-                          src={`https://media-assets.swiggy.com/swiggy/image/upload/${imageId}`}
+                          src={MENU_IMG_URL+imageId}
+                          //src={`https://media-assets.swiggy.com/swiggy/image/upload/${imageId}`}
                           alt={name}
                         />
                       )}
