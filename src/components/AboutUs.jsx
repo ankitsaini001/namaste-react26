@@ -1,3 +1,5 @@
+import AboutTeamCard from "./AboutTeamCard";
+
 const AboutUs = () => {
   return (
     <div className="about-container">
@@ -21,6 +23,13 @@ const AboutUs = () => {
         <p className="about-text">
           Thank you for being part of our journey. 🚀
         </p>
+      </div>
+      <div className="about-team-card">
+        <AboutTeamCard
+          name="John Doe"
+          role="CEO"
+          image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnCwNH4Ch0iV5GbcycFuso8r4igYeM96TK4Q&s"
+        />
       </div>
     </div>
   );
