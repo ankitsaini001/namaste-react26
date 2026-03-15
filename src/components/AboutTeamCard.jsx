@@ -1,40 +1,76 @@
-// Here we are using classbased component to create a card for our team members in the about us page. We will use this card to display the name, role and image of our team members.
+// Class-based component to create a card for team members on the About Us page
 import React from "react";
+import {USER_API_URL} from "../utils/content";
 
 class AboutTeamCard extends React.Component {
-    // for props we have to use constructor and super to initialize the props in classbased component.
-    constructor(props){
-        // super props is used to initialize the props in the classbased component.
-        super(props);
-        // we can also use state in classbased component but here we are not using state as we are only displaying the data passed from the parent component.
-        this.state = {
-            employeeId: 123,
-            count: 0,
-        }
+  constructor(props) {
+    super(props);
+
+    console.log("Constructor called");
+
+    // Initial state
+    this.state = {
+      employeeId: 123,
+      count: 0,
+      userInfo: null,
+    };
+  }
+
+  // Lifecycle method - runs after component is mounted
+  async componentDidMount() {
+    console.log("componentDidMount called");
+
+    try {
+      const response = await fetch(USER_API_URL);
+
+      const data = await response.json();
+      console.log(data);
+
+      this.setState({
+        userInfo: data,
+      });
+    } catch (error) {
+      console.error("Error fetching user:", error);
     }
-    render() {
+  }
+  componentDidUpdate() {
+    console.log("componentDidUpdate called");
+  }
 
-        const {name, role, image} = this.props;
-        const {employeeId} = this.state;
-        const {count} = this.state || 0;
+  componentWillUnmount() {
+    console.log("componentWillUnmount called");
+  }
 
-        return (
-            <div className="team-card">
-                <img src={image} alt={name} className="team-image" />
-                <h2 className="team-name">{name}</h2>
-                <p className="team-role">{role}</p>
-                <p className="team-id">Employee ID: {employeeId}</p>
+  render() {
+    console.log("Render called");
 
-                <button type="button" onClick={()=>{
-                    // To update the state variable in class component we uses setSate Variable
-                    this.setState({
-                        count: this.state.count+1,
-                    });
-                }}>Count: {count}</button>
-            </div>
-        );
-    }
+    const { image } = this.props;
+    const { count, userInfo } = this.state;
 
-} 
+    return (
+      <div className="team-card">
+        <img src={image} alt="team member" className="team-image" />
+
+        <h2 className="team-name">{userInfo?.name}</h2>
+        <p className="team-role">{userInfo?.email}</p>
+        <p className="team-phone">{userInfo?.phone}</p>
+
+        <p className="team-company">Company: {userInfo?.company?.name}</p>
+
+        <button
+          type="button"
+          className="team-btn"
+          onClick={() =>
+            this.setState({
+              count: count + 1,
+            })
+          }
+        >
+          Count: {count}
+        </button>
+      </div>
+    );
+  }
+}
 
 export default AboutTeamCard;
