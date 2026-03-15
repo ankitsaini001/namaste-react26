@@ -18,6 +18,9 @@ class AboutTeamCard extends React.Component {
 
   // Lifecycle method - runs after component is mounted
   async componentDidMount() {
+    this.interval = setInterval(() => {
+        console.log("Interval running every 1 second");
+    }, 1000);
     console.log("componentDidMount called");
 
     try {
@@ -34,10 +37,17 @@ class AboutTeamCard extends React.Component {
     }
   }
   componentDidUpdate() {
+    // This method is called after every update to the component (state or props change)
+    // You can perform side effects here, but be careful to avoid infinite loops
+    // For example, you could check if a specific state value has changed before performing an action
+    if (this.state.count !== 0) {
+      console.log("Count has been updated to:", this.state.count);
+    }
     console.log("componentDidUpdate called");
   }
 
   componentWillUnmount() {
+    clearInterval(this.interval); // Clear the interval to prevent memory leaks
     console.log("componentWillUnmount called");
   }
 
