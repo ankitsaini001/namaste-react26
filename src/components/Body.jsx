@@ -5,11 +5,13 @@ import { RESTRO_API_URL } from "../utils/content";
 import FilterTopRatedRestro from "./FilterTopRatedRestro";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [filteredTopRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const isOnline = useOnlineStatus();
 
   const API_URL = RESTRO_API_URL;
 
@@ -90,6 +92,13 @@ const Body = () => {
   //   );
   // }
 
+  if (!isOnline) {
+    return (
+      <div style={{ textAlign: "center", padding: "20px", fontSize: "18px", color: "#999" }}>
+        You are currently offline. Please check your internet connection.
+      </div>
+    );
+  }
   return filteredTopRestaurants.length === 0 ? <Shimmer/> : (
     <div className="body">
       <FilterTopRatedRestro onFilter={handleTopRated} />

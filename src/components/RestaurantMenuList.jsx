@@ -5,7 +5,7 @@ import usefetchRestaurantMenu from "../utils/usefetchRestaurantMenu";
 
 const RestaurantMenuList = () => {
   const { id } = useParams();
-  const jsonData = usefetchRestaurantMenu(id);
+  const jsonData = usefetchRestaurantMenu(id); // custom hook to fetch restaurant menu data
 
   if (!jsonData) return <Shimmer />;
 
