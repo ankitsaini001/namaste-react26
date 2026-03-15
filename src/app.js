@@ -41,12 +41,15 @@ const App = () => {
 // create a React Router
 const appRouter = createBrowserRouter([
   {
+    // future: {
+    //   v7_fetcherPersist: true,
+    // },
     path: "/",
     element: <App />,
     children: [
       {
         path: "/",
-        element: <Body />, 
+        element: <Body />,
       },
       {
         path: "/about",
@@ -57,8 +60,8 @@ const appRouter = createBrowserRouter([
         element: <ContactUs />,
       },
       {
-       path: "/login",
-       element: <Login />,
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "/signup",
@@ -67,7 +70,7 @@ const appRouter = createBrowserRouter([
       {
         path: "/restaurant/:id",
         element: <RestaurantMenuList />,
-      }
+      },
     ],
     errorElement: <Error />,
   },
