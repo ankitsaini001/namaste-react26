@@ -364,6 +364,68 @@
   color: #555;
 }
 
+.team-card {
+  width: 300px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.team-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.team-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.team-role {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.team-id,
+.team-phone,
+.team-website,
+.team-address,
+.team-company {
+  font-size: 13px;
+  color: #444;
+  margin: 4px 0;
+}
+
+.team-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #ff5200;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.team-btn:hover {
+  background: #e64a00;
+}
+
 /* Responsive */
 
 @media (max-width: 768px) {
