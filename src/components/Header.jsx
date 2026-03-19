@@ -12,7 +12,7 @@ const Header = () => {
     <div className="header">
       <img src={APP_LOGO} alt="logo" className="logo" />
       <div className="nav-items">
-        <ul>
+        <ul className="px-4 py-2">
           
           <li>Online Status: {isOnline ? "🟢" : "🔴"}</li>
           <li><Link to="/" className="nav">Home</Link></li>
