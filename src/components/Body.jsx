@@ -37,7 +37,7 @@ const Body = () => {
         restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
         [];
 
-      console.log(restaurants);
+      console.log(restaurantCard);
 
       // 🔥 Remove "Spice Kingdom"
       const filteredRestaurants = restaurants.filter(
