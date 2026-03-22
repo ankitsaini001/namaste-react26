@@ -20,4 +20,26 @@ const RestaurantCard = ({ data }) => {
     </div>
   );
 };
+
+export const isVegetarian = (RestaurantCard) => {
+  return (props) => {
+    const isVeg = props?.data?.info?.veg;
+
+    return (
+      <div className="relative group">
+        
+        {/* Badge */}
+        <label className="absolute top-[1px] left-2 z-50 bg-white px-0.5 py-0.5 pl-[1px] pr-[1px] rounded shadow">
+          {isVeg ? "🟢" : "🔴"}
+        </label>
+
+        {/* Card */}
+        <div className="transition-transform duration-300 group-hover:scale-105">
+          <RestaurantCard {...props} />
+        </div>
+
+      </div>
+    );
+  };
+};
 export default RestaurantCard;
