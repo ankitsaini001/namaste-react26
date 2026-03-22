@@ -18,14 +18,13 @@ const RestaurantMenuList = () => {
   const categories = items.filter(
     (item) =>
       item?.card?.card?.["@type"] ===
-      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
   );
 
   if (!categories.length) return <Shimmer />;
 
   return (
     <div className="menu-container">
-
       {/* Restaurant Info */}
       <div className="restaurant-info">
         <h1>{restaurantInfo?.name}</h1>
@@ -38,28 +37,29 @@ const RestaurantMenuList = () => {
 
       {/* Categories */}
       {categories.map((category, index) => {
-
         const { title, itemCards, categoryId } = category?.card?.card;
 
         return (
-          <div className="category" key={categoryId || index}>
-
-            <h3 className="category-title">{title}</h3>
-
+          <div
+            className="category shadow-lg my-auto p-2 bg-gray-100 rounded"
+            key={categoryId || index}
+          >
+            <div className="flex justify-between ">
+              <span className="category-title font-bold">
+                {title} ({itemCards?.length})
+              </span>
+              <span>🔻</span>
+            </div>
             {itemCards?.map((item) => {
-
               const info = item?.card?.info;
 
               return (
                 <div className="menu-item" key={info?.id}>
-
                   <div className="menu-item-content">
                     <h4>{info?.name}</h4>
                     <p>{info?.description}</p>
 
-                    <p>
-                      ₹{(info?.price || info?.defaultPrice) / 100}
-                    </p>
+                    <p>₹{(info?.price || info?.defaultPrice) / 100}</p>
                   </div>
 
                   {info?.imageId && (
@@ -69,7 +69,7 @@ const RestaurantMenuList = () => {
                       alt={info?.name}
                     />
                   )}
-
+                  <button className="p-2 bg-indigo-200 shadow-lg "> Add</button>
                 </div>
               );
             })}
