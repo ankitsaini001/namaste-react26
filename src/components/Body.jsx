@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import SearchBar from "./SearchBar";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {isVegetarian} from "./RestaurantCard";
 import { RESTRO_API_URL } from "../utils/content";
 import FilterTopRatedRestro from "./FilterTopRatedRestro";
 import Shimmer from "./Shimmer";
@@ -12,6 +12,7 @@ const Body = () => {
   const [filteredTopRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const isOnline = useOnlineStatus();
+  const IsVegetarian = isVegetarian(RestaurantCard); // Example value, you can set this based on your requirements
 
   const API_URL = RESTRO_API_URL;
 
@@ -36,14 +37,13 @@ const Body = () => {
         restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
         [];
 
-        //console.log(filteredRestaurants);
+      console.log(restaurants);
 
       // 🔥 Remove "Spice Kingdom"
       const filteredRestaurants = restaurants.filter(
         (restaurant) => restaurant?.info?.name !== "Spice Kingdom",
       );
       // console.log(filteredRestaurants);
-      
 
       setRestaurants(filteredRestaurants);
       setFilteredRestaurants(filteredRestaurants);
@@ -75,12 +75,12 @@ const Body = () => {
       setRestaurants(filteredTopRestaurants);
       return;
     }
-    
+
     const filtered = filteredTopRestaurants.filter((res) => {
       const name = res?.info?.name || "";
       return name.toLowerCase().includes(searchText.toLowerCase());
     });
-    
+
     setRestaurants(filtered);
   }, [filteredTopRestaurants, searchText]);
 
@@ -94,27 +94,52 @@ const Body = () => {
 
   if (!isOnline) {
     return (
-      <div style={{ textAlign: "center", padding: "20px", fontSize: "18px", color: "#999" }}>
+      <div
+        style={{
+          textAlign: "center",
+          padding: "20px",
+          fontSize: "18px",
+          color: "#999",
+        }}
+      >
         You are currently offline. Please check your internet connection.
       </div>
     );
   }
-  return filteredTopRestaurants.length === 0 ? <Shimmer/> : (
+  return filteredTopRestaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <FilterTopRatedRestro onFilter={handleTopRated} />
-      <SearchBar searchText={searchText} setSearchText={setSearchText} searchFilter={searchFilter} />
+      <SearchBar
+        searchText={searchText}
+        setSearchText={setSearchText}
+        searchFilter={searchFilter}
+      />
       {restaurants.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "20px", fontSize: "18px", color: "#999" }}>
+        <div
+          style={{
+            textAlign: "center",
+            padding: "20px",
+            fontSize: "18px",
+            color: "#999",
+          }}
+        >
           No restaurants found. Try a different search.
         </div>
       ) : (
         <div className="restaurant-list">
           {restaurants.map((restaurant, index) => (
             //<Link to ='/restaurant/' + restaurant?.info?.id} key={restaurant?.info?.id || index>
-            <Link to={`/restaurant/${restaurant?.info?.id}`} key={restaurant?.info?.id || index}>
-            <RestaurantCard
-              data={restaurant}
-            />
+            <Link
+              to={`/restaurant/${restaurant?.info?.id}`}
+              key={restaurant?.info?.id || index}
+            >
+              {
+                 // get isVegetarian value from restaurant data and pass it to isVegetarian HOC
+                  <IsVegetarian data={restaurant} />
+                  // restaurant?.info?.veg ? (<isVegetarian data={restaurant}/>) : (<RestaurantCard data={restaurant} />)
+              }
             </Link>
           ))}
         </div>
