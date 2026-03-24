@@ -25,8 +25,9 @@ import Error from "./components/Error";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import RestaurantMenuList from "./components/RestaurantMenuList";
-import { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import Shimmer from "./components/Shimmer";
+import UserContext from "./utils/UserContext";
 // import Grocery from "./components/Grocery";
 
 /* ================= APP ================= */
@@ -34,12 +35,27 @@ import Shimmer from "./components/Shimmer";
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const App = () => {
+  const [userName, setUserName] = useState("Guest");
+
+  useEffect(() => {
+    // make an api call and send username to the server and get the user data and set it in the context
+    const user = {
+      name: "Ankit Saini",
+    };
+    setUserName(user.name);
+  }, []);
+  // Write user Authentication dummy logic here
+
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+   
+      <div className="app">
+         <UserContext.Provider value={{ user: userName }}>
+        <Header />
+        </UserContext.Provider>
+        <Outlet />
+        <Footer />
+      </div>
+    
   );
 };
 

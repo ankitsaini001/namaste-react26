@@ -1,6 +1,7 @@
 // Class-based component to create a card for team members on the About Us page
 import React from "react";
 import {USER_API_URL} from "../utils/content";
+import UserContext from "../utils/UserContext";
 
 class AboutTeamCard extends React.Component {
   constructor(props) {
@@ -78,6 +79,16 @@ class AboutTeamCard extends React.Component {
         >
           Count: {count}
         </button>
+
+        <div>
+          LoggedIn User:
+          <UserContext.Consumer>
+            {(user) => {
+              console.log("User from context:", user);
+              return user?.user ?? null;
+            }}
+          </UserContext.Consumer>
+        </div>
       </div>
     );
   }
