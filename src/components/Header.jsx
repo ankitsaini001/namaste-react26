@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { APP_LOGO } from "../utils/content";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import userContext from "../utils/userContext";
 
 const Header = () => {
   const [loginBtn, setLoginBtn] = useState("Login");
   const isOnline = useOnlineStatus();
+  const userName = useContext(userContext); // Example user name, can be fetched from context or props
+  console.log(userName);
 
   //let logoUrl = "Login";
   return (
@@ -40,6 +43,7 @@ const Header = () => {
           >
             {loginBtn}
           </li>
+          <li>Welcome, {userName}</li>
         </ul>
       </div>
     </div>
