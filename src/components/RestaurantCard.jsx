@@ -1,9 +1,12 @@
+import { use, useContext } from "react";
 import {RESTRO_IMG_URL} from "../utils/content";
+import UserContext from "../utils/UserContext";
 
 const IMG_URL = RESTRO_IMG_URL;
 
 const RestaurantCard = ({ data }) => {
   const info = data?.info;
+  const {user} = useContext(UserContext);
 
   if (!info) return null;
 
@@ -17,6 +20,7 @@ const RestaurantCard = ({ data }) => {
       <h2>{info.name}</h2>
       <h3>{info.cuisines?.join(", ")}</h3>
       <h4>⭐ {info.avgRating}</h4>
+      <p className="italic text-[9px]">{user}</p>
     </div>
   );
 };
