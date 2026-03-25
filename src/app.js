@@ -35,7 +35,7 @@ import UserContext from "./utils/UserContext";
 const Grocery = lazy(() => import("./components/Grocery"));
 
 const App = () => {
-  const [userName, setUserName] = useState("Guest");
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     // make an api call and send username to the server and get the user data and set it in the context
@@ -47,15 +47,13 @@ const App = () => {
   // Write user Authentication dummy logic here
 
   return (
-   
-      <div className="app">
-         <UserContext.Provider value={{ user: userName }}>
+    <div className="app">
+      <UserContext.Provider value={{ user: userName, setUserName }}>
         <Header />
-        </UserContext.Provider>
-        <Outlet />
-        <Footer />
-      </div>
-    
+      </UserContext.Provider>
+      <Outlet />
+      <Footer />
+    </div>
   );
 };
 
