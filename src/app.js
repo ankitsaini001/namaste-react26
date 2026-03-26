@@ -28,6 +28,7 @@ import RestaurantMenuList from "./components/RestaurantMenuList";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/UserContext";
+import ContactForm from "./components/ContactForm";
 // import Grocery from "./components/Grocery";
 
 /* ================= APP ================= */
@@ -67,36 +68,41 @@ const appRouter = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/",
+        path: "",
         element: <Body />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <AboutUs />,
       },
       {
-        path: "/contact",
+        path: "contact",
         element: <ContactUs />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/signup",
+        path: "signup",
         element: <SignUp />,
       },
       {
-        path: "/restaurant/:id",
+        path: "restaurant/:id",
         element: <RestaurantMenuList />,
       },
+      { path: "test", element: <h1>TEST PAGE</h1> },
       {
-        path: "/grocery",
+        path: "grocery",
         element: (
           <Suspense fallback={<Shimmer />}>
             <Grocery />
           </Suspense>
         ),
+      },
+      {
+        path: "contactform",
+        element: <ContactForm />,
       },
     ],
     errorElement: <Error />,
