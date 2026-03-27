@@ -1,43 +1,46 @@
 import { useState } from "react";
 
 const ContactForm = () => {
-    // use state to manage form data and validation status
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        message: "",
-    });
-    console.log(formData);
-    const [formStatus, setFormStatus] = useState({
-        isSubmitted: false,
-        error: "",
-        message: "",
-    });
-    console.log(formStatus);
-    
-    // form submit handler
+  // use state to manage form data and validation status
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  console.log(formData);
+  const [formStatus, setFormStatus] = useState({
+    isSubmitted: false,
+    error: "",
+    message: "",
+  });
+  console.log(formStatus);
+
+  // form submit handler
   const userFormEntry = (e) => {
     e.preventDefault();
     console.log("button clicked");
     // validation logic
     if (formData.name === "") {
-        setFormStatus({ isSubmitted: false, error: "Name is mandatory" });
-        return;
+      setFormStatus({ isSubmitted: false, error: "Name is mandatory" });
+      return;
     } else if (formData.email === "") {
-        setFormStatus({ isSubmitted: false, error: "Email is mandatory" });
-        return;
+      setFormStatus({ isSubmitted: false, error: "Email is mandatory" });
+      return;
     } else if (formData.message === "") {
-        setFormStatus({ isSubmitted: false, error: "Message is mandatory" });
-        return;
+      setFormStatus({ isSubmitted: false, error: "Message is mandatory" });
+      return;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        setFormStatus({ isSubmitted: false, error: "Invalid email format" });
-        return;
+      setFormStatus({ isSubmitted: false, error: "Invalid email format" });
+      return;
     }
     // If all validations pass, set form status to submitted
-    setFormStatus({ isSubmitted: true, message: `Thank you, ${formData.name}! Your message has been sent.` });
+    setFormStatus({
+      isSubmitted: true,
+      message: `Thank you, ${formData.name}! Your message has been sent.`,
+    });
     // Reset form fields after successful submission
     setFormData({ name: "", email: "", message: "" });
-  }
+  };
   return (
     <div>
       {/* Implement contact form logic here */}
@@ -58,18 +61,18 @@ const ContactForm = () => {
           <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
             Contact Form
           </h1>
-              {/* Display error message if any */}
-            {formStatus.error && (
-                <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
-                    {formStatus.error}
-                </div>
-            )}
-            {/* Display success message if form is submitted */}
-            {formStatus.isSubmitted && (
-                <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
-                    {formStatus.message}
-                </div>
-            )}
+          {/* Display error message if any */}
+          {formStatus.error && (
+            <div className="bg-red-100 text-red-700 p-3 rounded mb-4">
+              {formStatus.error}
+            </div>
+          )}
+          {/* Display success message if form is submitted */}
+          {formStatus.isSubmitted && (
+            <div className="bg-green-100 text-green-700 p-3 rounded mb-4">
+              {formStatus.message}
+            </div>
+          )}
 
           <form className="space-y-5" onSubmit={userFormEntry}>
             {/* Name */}
@@ -82,7 +85,9 @@ const ContactForm = () => {
                 name="name"
                 placeholder="Enter your name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
               />
             </div>
@@ -97,9 +102,10 @@ const ContactForm = () => {
                 name="email"
                 placeholder="Enter your email"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                
               />
             </div>
 
@@ -113,9 +119,10 @@ const ContactForm = () => {
                 rows="4"
                 placeholder="Write your message..."
                 value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                
               ></textarea>
             </div>
 
