@@ -1,7 +1,7 @@
 // Class-based component to create a card for team members on the About Us page
 import React from "react";
 import {USER_API_URL} from "../utils/content";
-import UserContext from "../utils/UserContext";
+import UserContext from "../utils/userContext";
 
 class AboutTeamCard extends React.Component {
   constructor(props) {

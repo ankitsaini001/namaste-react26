@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import UserContext from "../utils/UserContext";
+import UserContext from "../utils/userContext";
 
 const SearchBar = ({searchText, setSearchText, searchFilter}) => {
   const { user, setUserName } = useContext(UserContext);
