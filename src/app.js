@@ -27,7 +27,7 @@ import SignUp from "./components/SignUp";
 import RestaurantMenuList from "./components/RestaurantMenuList";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import Shimmer from "./components/Shimmer";
-import UserContext from "./utils/UserContext";
+import UserContext from "./utils/userContext";
 import ContactForm from "./components/ContactForm";
 // import Grocery from "./components/Grocery";
 

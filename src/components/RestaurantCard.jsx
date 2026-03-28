@@ -1,6 +1,6 @@
 import { use, useContext } from "react";
 import {RESTRO_IMG_URL} from "../utils/content";
-import UserContext from "../utils/UserContext";
+import UserContext from "../utils/userContext";
 
 const IMG_URL = RESTRO_IMG_URL;
 
