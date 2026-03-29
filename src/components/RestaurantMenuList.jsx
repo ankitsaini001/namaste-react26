@@ -3,11 +3,20 @@ import { MENU_IMG_URL } from "../utils/content";
 import { useParams } from "react-router";
 import usefetchRestaurantMenu from "../utils/usefetchRestaurantMenu";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 
 const RestaurantMenuList = () => {
   const { id } = useParams();
   const jsonData = usefetchRestaurantMenu(id); // custom hook to fetch restaurant menu data
   const [expandedCategoryId, setExpandedCategoryId] = useState(null); // Track which category is expanded
+
+  const dispatched = useDispatch();
+
+  const addClickItem = (item) => {
+    console.log("btn clicked");
+    dispatched(addItem(item));
+  };
 
   if (!jsonData) return <Shimmer />;
 
@@ -25,7 +34,9 @@ const RestaurantMenuList = () => {
 
   const handleClick = (categoryId) => {
     // Toggle: if clicked category is already open, close it; otherwise open it
-    setExpandedCategoryId(expandedCategoryId === categoryId ? null : categoryId);
+    setExpandedCategoryId(
+      expandedCategoryId === categoryId ? null : categoryId,
+    );
 
     //console.log("Category clicked!", categoryId);
   };
@@ -55,7 +66,10 @@ const RestaurantMenuList = () => {
             className="category shadow-lg my-auto p-2 bg-gray-100 rounded"
             key={keyId}
           >
-            <div className="flex justify-between cursor-pointer" onClick={() => handleClick(keyId)}>
+            <div
+              className="flex justify-between cursor-pointer"
+              onClick={() => handleClick(keyId)}
+            >
               <span className="category-title font-bold">
                 {title} ({itemCards?.length})
               </span>
@@ -82,7 +96,10 @@ const RestaurantMenuList = () => {
                           alt={info?.name}
                         />
                       )}
-                      <button className="p-2 bg-indigo-200 shadow-lg ">
+                      <button
+                        className="p-2 bg-indigo-200 shadow-lg "
+                        onClick={() => addClickItem(item)}
+                      >
                         {" "}
                         Add
                       </button>
