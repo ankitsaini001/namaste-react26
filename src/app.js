@@ -31,6 +31,7 @@ import UserContext from "./utils/userContext";
 import ContactForm from "./components/ContactForm";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 // import Grocery from "./components/Grocery";
 
 /* ================= APP ================= */
@@ -95,7 +96,9 @@ const appRouter = createBrowserRouter([
         path: "restaurant/:id",
         element: <RestaurantMenuList />,
       },
-      { path: "test", element: <h1>TEST PAGE</h1> },
+      { path: "/cart", 
+        element: <Cart/> 
+      },
       {
         path: "grocery",
         element: (
