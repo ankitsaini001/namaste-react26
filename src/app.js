@@ -29,6 +29,8 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./utils/userContext";
 import ContactForm from "./components/ContactForm";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 // import Grocery from "./components/Grocery";
 
 /* ================= APP ================= */
@@ -48,13 +50,15 @@ const App = () => {
   // Write user Authentication dummy logic here
 
   return (
-    <div className="app">
+    <Provider store={appStore}>
       <UserContext.Provider value={{ user: userName, setUserName }}>
-        <Header />
+        <div className="app">
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
       </UserContext.Provider>
-      <Outlet />
-      <Footer />
-    </div>
+    </Provider>
   );
 };
 

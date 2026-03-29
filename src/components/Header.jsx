@@ -3,12 +3,16 @@ import { APP_LOGO } from "../utils/content";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/userContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [loginBtn, setLoginBtn] = useState("Login");
   const isOnline = useOnlineStatus();
   const data = useContext(UserContext);
 
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
+  
   //let logoUrl = "Login";
   return (
     <div className="header">
@@ -33,7 +37,7 @@ const Header = () => {
           </li>
           <li>
             <Link to="/cart" className="nav">
-              Cart
+              Cart - ({cartItems.length} items)
             </Link>
           </li>
           <li>
