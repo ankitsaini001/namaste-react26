@@ -52,13 +52,13 @@ const App = () => {
 
   return (
     <Provider store={appStore}>
-      <UserContext.Provider value={{ user: userName, setUserName }}>
-        <div className="app">
+      <div className="app">
+        <UserContext.Provider value={{ user: userName, setUserName }}>
           <Header />
-          <Outlet />
-          <Footer />
-        </div>
-      </UserContext.Provider>
+        </UserContext.Provider>
+        <Outlet />
+        <Footer />
+      </div>
     </Provider>
   );
 };
@@ -96,9 +96,7 @@ const appRouter = createBrowserRouter([
         path: "restaurant/:id",
         element: <RestaurantMenuList />,
       },
-      { path: "/cart", 
-        element: <Cart/> 
-      },
+      { path: "/cart", element: <Cart /> },
       {
         path: "grocery",
         element: (
