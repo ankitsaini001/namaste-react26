@@ -12,7 +12,6 @@
   },
   "license": "ISC",
   "author": "Ankit Saini",
-  "type": "module",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
