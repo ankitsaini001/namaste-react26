@@ -12,3 +12,15 @@ test("renders contact form correctly",() =>{
     // we can expect the title to be in the document
     expect(titleElement).toBeInTheDocument();
 });
+
+test("render contact form email", () => {
+    render(<ContactUs />);
+    const emailElement =  screen.getByText("Email");
+    expect(emailElement).toBeInTheDocument();
+});
+
+test("render contact form phone", () => {
+    render(<ContactUs />);
+    const phoneElement =  screen.getByText("Phone");
+    expect(phoneElement).toBeInTheDocument();
+});
