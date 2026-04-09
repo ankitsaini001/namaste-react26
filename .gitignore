@@ -8,8 +8,6 @@
 .parcel-cache
 .cache
 .cache
-/JEST_SETUP.js
-.JEST_SETUP.js
 JEST_SETUP.md
 .env
 .env.local
