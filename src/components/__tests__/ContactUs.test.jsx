@@ -24,3 +24,15 @@ test("render contact form phone", () => {
     const phoneElement =  screen.getByText("Phone");
     expect(phoneElement).toBeInTheDocument();
 });
+
+test("render contact form for contact-item", () => {
+    render(<ContactUs />);
+    const contactItems = screen.getAllByRole("paragraph");
+    expect(contactItems.length).not.toBe(3);
+});
+
+test("render contact form for contact-item", () => {
+    render(<ContactUs />);
+    const contactItems = screen.getAllByRole("paragraph");
+    expect(contactItems.length).toBe(4);
+});
