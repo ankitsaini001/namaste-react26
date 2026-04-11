@@ -5,6 +5,8 @@ import UserContext from "../utils/userContext";
 const IMG_URL = RESTRO_IMG_URL;
 
 const RestaurantCard = ({ data }) => {
+ // console.log(data);
+  
   const info = data?.info;
   const {user} = useContext(UserContext);
 
