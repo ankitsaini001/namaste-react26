@@ -11,7 +11,7 @@ const Header = () => {
   const data = useContext(UserContext);
 
   const cartItems = useSelector((store) => store.cart.items);
-  console.log(cartItems);
+  //console.log(cartItems);
   
   //let logoUrl = "Login";
   return (
