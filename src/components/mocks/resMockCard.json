@@ -10,7 +10,7 @@
     "avgRating": 4.3,
     "avgRatingString": "4.3",
     "totalRatingsString": "10K+ ratings",
-    "veg": true,
+    "veg": false,
     "sla": {
       "deliveryTime": 30,
       "lastMileTravel": 3.5,

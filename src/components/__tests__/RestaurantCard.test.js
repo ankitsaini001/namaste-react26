@@ -15,7 +15,7 @@ describe("RestaurantCard Component", () => {
     const VegRestaurantCard = isVegetarian(RestaurantCard);
     render(<VegRestaurantCard data={MOCK_DATA} />);
 
-    const vegBadge = screen.getByText("🟢");
-    expect(vegBadge).toBeInTheDocument();
+    const nonvegBadge = screen.getByText("🔴");
+    expect(nonvegBadge).toBeInTheDocument();
   });
 });
