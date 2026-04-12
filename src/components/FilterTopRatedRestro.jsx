@@ -2,7 +2,7 @@
 
 const FilterTopRatedRestro = ({ onFilter }) => {
   return (
-    <button className="filter-btn" onClick={onFilter}>
+    <button className="filter-btn" data-testid="top-rated-filter" onClick={onFilter}>
       ⭐ Top Rated Restaurants
     </button>
   );

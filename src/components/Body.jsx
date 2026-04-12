@@ -37,7 +37,7 @@ const Body = () => {
         restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants ||
         [];
 
-      console.log(restaurantCard);
+      //console.log(restaurantCard);
 
       // 🔥 Remove "Spice Kingdom"
       const filteredRestaurants = restaurants.filter(
@@ -56,7 +56,7 @@ const Body = () => {
       // setFilteredRestaurants(topRatedRestaurants);
       // }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      //console.error("Error fetching data:", error);
     }
   };
 
@@ -109,7 +109,7 @@ const Body = () => {
   return filteredTopRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
+    <div className="body" data-testid="restaurant-topRated-resCard">
       <FilterTopRatedRestro onFilter={handleTopRated} />
       <SearchBar
         searchText={searchText}
@@ -128,7 +128,7 @@ const Body = () => {
           No restaurants found. Try a different search.
         </div>
       ) : (
-        <div className="restaurant-list">
+        <div className="restaurant-list" data-testid="restaurant-list">
           {restaurants.map((restaurant, index) => (
             //<Link to ='/restaurant/' + restaurant?.info?.id} key={restaurant?.info?.id || index>
             <Link

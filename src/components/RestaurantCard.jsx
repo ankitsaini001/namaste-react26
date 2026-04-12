@@ -13,7 +13,7 @@ const RestaurantCard = ({ data }) => {
   if (!info) return null;
 
   return (
-    <div className="restaurant-card">
+    <div className="restaurant-card" data-testid="restaurant-card">
       <img
         src={IMG_URL + info.cloudinaryImageId}
         alt={info.name}
